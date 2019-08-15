@@ -1,4 +1,12 @@
+# Burguer Builder
+
+## How it looks?
+![Screenshot](/img/burger.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Goal?
+Practice react creating a burguer builder!
 
 ## Available Scripts
 

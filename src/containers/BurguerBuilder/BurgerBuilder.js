@@ -50,10 +50,17 @@ class BurgerBuilder extends Component {
     }
 
     render(){
+        // Copy of the object
+        const disbaledInfo = {...this.state.ingredients };
+        // Updating value from zero to true or false like: { salad: true, meat: false, ..}
+        for (let key in disbaledInfo) { disbaledInfo[key] = disbaledInfo[key] <= 0  }
+        console.log(disbaledInfo)
         return(
             <div>
                 <Burger ingredients = {this.state.ingredients}/>
-                <BuildControls ingredientsAdded = {this.addIngredienteHanlder} ingredientsRemoved = {this.removeIngredientHanlder}/>
+                <BuildControls ingredientsAdded = {this.addIngredienteHanlder}
+                               ingredientsRemoved = {this.removeIngredientHanlder}
+                               disbaledInfo = {disbaledInfo}/>
             </div>
         );
     }

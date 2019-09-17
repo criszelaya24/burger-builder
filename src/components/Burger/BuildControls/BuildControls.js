@@ -19,6 +19,7 @@ const buildControls = (props) => (
                           label={ctrl.label}
                           disbaledInfo = {props.disbaledInfo[ctrl.type]}/>
         ))}
+        <button className={classes.OrderButton}>ORDER NOW</button>
     </div>
 );
 

@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {Component} from 'react'
 import Button from '../../UI/Button/Button'
 
-const OrderSummary = (props) => {
-    const ingredientSummary = Object.keys(props.ingredients).map(
+class OrderSummary extends Component {
+    componentDidUpdate(){
+        console.log('orderSummary rendered')
+    }
+    render(){
+    const ingredientSummary = Object.keys(this.props.ingredients).map(
         igKey => {
-            return <li key={igKey}><span style={{textTransform: 'capitalize'}}>{igKey}</span>: {props.ingredients[igKey]}</li>
+            return <li key={igKey}><span style={{textTransform: 'capitalize'}}>{igKey}</span>: {this.props.ingredients[igKey]}</li>
         }
     )
     return(
@@ -14,12 +18,13 @@ const OrderSummary = (props) => {
             <ul>
                 {ingredientSummary}
             </ul>
-            <p><strong>Total price: {props.price.toFixed(2)}</strong></p>
+            <p><strong>Total price: {this.props.price.toFixed(2)}</strong></p>
             <p>Continue to Checkout?</p>
-            <Button clicked = {props.purchaseCancelled} btnType = "Danger">CANCEL</Button>
-            <Button clicked = {props.purchaseContinue} btnType = "Success">CONTINUE</Button>
+            <Button clicked = {this.props.purchaseCancelled} btnType = "Danger">CANCEL</Button>
+            <Button clicked = {this.props.purchaseContinue} btnType = "Success">CONTINUE</Button>
         </div>
     );
+    }
 }
 
 export default OrderSummary;

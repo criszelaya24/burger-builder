@@ -22,8 +22,15 @@ class BurgerBuilder extends Component {
         totalPrice: 4,
         purchasable: false,
         purchasing: false,
-        loading: false
+        loading: false,
+        error: false,
+        errorMessage: null
     }
+
+    // componentDidMount(){
+    //     axios.get('/ingredients.json')
+    //          .then(res => this.setState({ingredients: res.data}))
+    // }
 
     purchaseHandler = () => {
         this.setState({purchasing: true});
@@ -75,7 +82,9 @@ class BurgerBuilder extends Component {
 
     purchaseCancelHandler = () =>{
         this.setState({
-            purchasing: false
+            purchasing: false,
+            error: false,
+            errorMessage: null
         })
     }
 
@@ -96,9 +105,11 @@ class BurgerBuilder extends Component {
             },
             deliveryMethod: 'Fastest'
         }
-        axios.post('/orders.json', order)
+        axios.post('/orders', order)
              .then(response => this.setState({loading:false, purchasing: false}))
-             .catch(err => this.setState({loading:false, purchasing: false}))
+             .catch(err => {
+                 this.setState({loading:false, error: true, errorMessage: err.message})
+                })
 
     }
 
@@ -112,7 +123,8 @@ class BurgerBuilder extends Component {
                                            purchaseContinue = {this.purchaseContinueHandler}
                                            ingredients = {this.state.ingredients}
                                            price = {this.state.totalPrice}/>
-        if(this.state.loading) orderSummary = <Spinner/>
+        if(this.state.loading) orderSummary = <Spinner/>;
+        if(this.state.error) orderSummary = <div>{this.state.errorMessage}</div>
         return(
             <div>
                 <Modal show = {this.state.purchasing} modalClosed={this.purchaseCancelHandler}>

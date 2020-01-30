@@ -109,7 +109,20 @@ class BurgerBuilder extends Component {
         //      .catch(err => {
         //          this.setState({loading:false, error: true, errorMessage: err.message})
         //         })
-        this.props.history.push('/checkout')
+        
+        // Both ways can work throuh foreach or by for
+        const queryParams = []
+        Object.keys(this.state.ingredients).forEach(ing => {
+            queryParams.push(encodeURIComponent(ing) + '=' + encodeURIComponent(this.state.ingredients[ing]));
+        })
+        // for (let i in this.state.ingredients) {
+        //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
+        // }
+        const queryString = queryParams.join('&')
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        })
     }
 
     render(){

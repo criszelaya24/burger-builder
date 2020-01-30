@@ -21,3 +21,11 @@ To change this behavior, you have to find out which path you're on and add the n
 There's no better or worse way of creating Link paths - choose the one you need. Sometimes, you want to ensure that you always load the same path, no matter on which path you already are => Use absolute paths in this scenario.
 
 Use relative paths if you want to navigate relative to your existing path.
+
+
+USES:
+
+withRouter(component) => ALlows you to inject the history props from router inside of the component
+BrowserRouter => You need to wrapped all the app to work with router
+Switch => Allows you to set the exactly rout to match to the component
+Route => Allows you to render the component with the props component={nameOfComponent}

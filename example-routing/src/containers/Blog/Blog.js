@@ -12,7 +12,7 @@ class Blog extends Component {
     }
 
     render () {
-        let PostsRoute = this.state.auth ? <Route path='/' exact component={Posts}/> : null
+        let newPostRoute = this.state.auth ? <Route path='/new-post' exact component={NewPost}/> : null
         return (
             <div className= "Blog">
                 <header>
@@ -24,10 +24,10 @@ class Blog extends Component {
                     </nav>
                 </header>
                 <Switch>
-                    { PostsRoute }
-                    <Route path='/new-post' exact component={NewPost}/>
+                    { newPostRoute }
+                    <Route path='/posts' exact component={Posts}/>
                     <Route path='/posts/:postId' exact component={FullPost}/>
-                    <Redirect from="/posts" to="/"/>
+                    <Redirect from="/" to="/posts"/>
                 </Switch>
             </div>
         );

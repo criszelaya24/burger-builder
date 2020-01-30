@@ -7,7 +7,12 @@ import './Blog.css';
 
 class Blog extends Component {
 
+    state = {
+        auth: false
+    }
+
     render () {
+        let PostsRoute = this.state.auth ? <Route path='/' exact component={Posts}/> : null
         return (
             <div className= "Blog">
                 <header>
@@ -19,7 +24,7 @@ class Blog extends Component {
                     </nav>
                 </header>
                 <Switch>
-                    <Route path='/' exact component={Posts}/>
+                    { PostsRoute }
                     <Route path='/new-post' exact component={NewPost}/>
                     <Route path='/posts/:postId' exact component={FullPost}/>
                     <Redirect from="/posts" to="/"/>

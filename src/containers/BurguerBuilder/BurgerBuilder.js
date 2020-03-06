@@ -89,27 +89,6 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () =>{
         // alert('You continue!')
-        // this.setState({loading: true})
-        // const order = {
-        //     ingredients: this.state.ingredients,
-        //     price: this.state.totalPrice,
-        //     customer: {
-        //         name: 'Cris',
-        //         address: {
-        //             street: 'testStreet 1',
-        //             zipCode: 'test',
-        //             country: 'germany'
-        //         },
-        //         email: 'test@test.com',
-        //     },
-        //     deliveryMethod: 'Fastest'
-        // }
-        // axios.post('/orders.json', order)
-        //      .then(response => this.setState({loading:false, purchasing: false}))
-        //      .catch(err => {
-        //          this.setState({loading:false, error: true, errorMessage: err.message})
-        //         })
-        
         // Both ways can work throuh foreach or by for
         const queryParams = []
         Object.keys(this.state.ingredients).forEach(ing => {
@@ -118,6 +97,7 @@ class BurgerBuilder extends Component {
         // for (let i in this.state.ingredients) {
         //     queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
         // }
+        queryParams.push('price=' + this.state.totalPrice)
         const queryString = queryParams.join('&')
         this.props.history.push({
             pathname: '/checkout',

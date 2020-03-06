@@ -3,22 +3,23 @@ import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSumm
 import ContactData from './ContactData/ContactData'
 class Checkout extends Component {
     state = {
-        ingredients: {
-            salad: 0,
-            meat: 0,
-            cheese: 0,
-            bacon: 0
-        },
+        ingredients: null,
+        totalPrice: 0,
         contactData:false
     }
 
-    componentDidMount() {
+    UNSAFE_componentWillMount() {
         const query = new URLSearchParams(this.props.location.search)
         const ingredients = {}
+        let price = 0
         for (let param of query.entries()) {
-            ingredients[param[0]] = +param[1]
+            if (param[0] === 'price'){
+                price = param[1] 
+            } else {
+                ingredients[param[0]] = +param[1]
+            }
         }
-        this.setState({ingredients: ingredients})
+        this.setState({ingredients: ingredients, totalPrice: price})
     }
 
     checkoutCancel = () => {
@@ -30,7 +31,7 @@ class Checkout extends Component {
         this.setState({contactData: true})
     }
     render(){
-        let contactData = this.state.contactData ? <ContactData/> : null
+        let contactData = this.state.contactData ? <ContactData ingredients={this.state.ingredients} totalPrice={this.state.totalPrice}/> : null
         return(
             <div>
                 <CheckoutSummary

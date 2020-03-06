@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from './containers/Layout/Layout'
 import BurgerBuilder from './containers/BurguerBuilder/BurgerBuilder'
 import Checkout from './containers/Checkout/Checkout'
+import Orders from './containers/Orders/Orders'
 import { Route, Switch } from 'react-router-dom'
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Layout children = 'Test from children'>
         <Switch>
           <Route path="/checkout" exact component={Checkout}/>
+          <Route path="/orders" exact component={Orders}/>
           <Route path="/" exact component={BurgerBuilder}/>
         </Switch>
       </Layout>

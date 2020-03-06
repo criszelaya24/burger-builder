@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
+import ContactData from './ContactData/ContactData'
 class Checkout extends Component {
     state = {
         ingredients: {
@@ -7,7 +8,8 @@ class Checkout extends Component {
             meat: 0,
             cheese: 0,
             bacon: 0
-        }
+        },
+        contactData:false
     }
 
     componentDidMount() {
@@ -24,15 +26,18 @@ class Checkout extends Component {
     }
 
     checkoutContinue = () => {
-        this.props.history.replace('/checkout/contact-data')
+        // this.props.history.replace('/checkout/contact-data')
+        this.setState({contactData: true})
     }
     render(){
+        let contactData = this.state.contactData ? <ContactData/> : null
         return(
             <div>
                 <CheckoutSummary
                     ingredients={this.state.ingredients}
                     checkoutCancel={this.checkoutCancel}
                     checkoutContinue={this.checkoutContinue}/>
+                    { contactData }
             </div>
         )
     }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Order from '../../components/Order/Order'
 import axios from '../../axios-orders'
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 class Orders extends Component {
     state = {
@@ -34,6 +35,7 @@ class Orders extends Component {
             return <Order key={order.id} price={+order.price} ingredients={order.ingredients}/>
         })
         if (this.state.errorMessage !== null) Orders = <div>{ this.state.errorMessage }</div>;
+        if (this.state.orders.length === 0) Orders = <Spinner />
         return(
             <div>
                 { Orders }

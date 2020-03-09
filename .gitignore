@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /example-routing/node_modules
+/redux-example/node_modules
 /.pnp
 .pnp.js
 

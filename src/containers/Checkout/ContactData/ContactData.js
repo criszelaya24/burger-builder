@@ -3,15 +3,60 @@ import Button from '../../../components/UI/Button/Button'
 import Classes from './ContactData.css'
 import Spinner from '../../../components/UI/Spinner/Spinner'
 import axios from '../../../axios-orders'
+import Input from '../../../components/UI/Input/Input'
 import { withRouter } from 'react-router-dom'
 class ContactData extends Component {
     state = {
-        name: '',
-        email: '',
-        address: {
-            street: '',
-            postalCode: ''
-        },
+       orderForm: {
+            name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Your Name'
+                },
+                value: ''
+            },
+            street: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Street'
+                },
+                value: ''
+            },
+            zipCode: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'ZIP Code'
+                },
+                value: ''
+            },
+            country: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Country'
+                },
+                value: ''
+            },
+            email: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'email',
+                    placeholder: 'Your Email'
+                },
+                value: ''
+            },
+            deliveryMethod: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [{value: 'fastest', displayValue: 'Fastest'},
+                              {value: 'cheapest', displayValue: 'Cheapest'} ]
+                },
+                value: ''
+            }
+       },
         loading: false
     }
 
@@ -45,15 +90,19 @@ class ContactData extends Component {
     }
 
     render(){
+        const formElementsArray = []
+        Object.entries(this.state.orderForm).forEach(([key, value])=>{formElementsArray.push({id: key, config: value})})
+
         return(
             <div className={Classes.ContactData}>
             { this.state.loading ? <Spinner/> : null}
                 <h4>Enter your Contact Data</h4>
                 <form>
-                    <input type="text" name="name" placeholder="Your Name"></input>
-                    <input type="email" name="Email" placeholder="Your Email"></input>
-                    <input type="text" name="street" placeholder="Your Street"></input>
-                    <input type="text" name="postal" placeholder="Your Porstal Code"></input>
+                    {formElementsArray.map((formElement) => (
+                        <Input key={formElement.id} elementType={formElement.config.elementType}
+                               elementConfig={formElement.config.elementConfig}
+                               value={formElement.config.value}/>
+                    ))}
                     <Button btnType="Success" clicked={this.orderHanlder}>ORDER</Button>
                 </form>
             </div>

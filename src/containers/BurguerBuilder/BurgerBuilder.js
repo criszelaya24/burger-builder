@@ -18,11 +18,14 @@ class BurgerBuilder extends Component {
 
     componentDidMount(){
         console.log(this.props)
-        // axios.get('/ingredients.json')
-        //      .then(res => this.setState({ingredients: res.data, error: false, errorMessage: null}))
-        //      .catch(err => {
-        //         this.setState({error: true, errorMessage: err.message})
-        //        })
+        axios.get('/ingredients.json')
+             .then(res => {
+                 console.log(res)
+                this.props.onStoreIngredients(res.data)
+             })
+             .catch(err => {
+                this.setState({error: true, errorMessage: err.message})
+               })
     }
 
     purchaseHandler = () => {
@@ -97,8 +100,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientsAdd: (ingredientName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingredientName}),
-        onIngredientsRemoved: (ingredientName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingredientName})
+        onIngredientsAdd: (ingredientName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName}),
+        onIngredientsRemoved: (ingredientName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName}),
+        onStoreIngredients: (ingredients) => dispatch({type: actionTypes.SET_INGREDIENTS, ingredients})
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);

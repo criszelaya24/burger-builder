@@ -10,7 +10,7 @@ import burguerBuilderReducer from './store/reducers/burguerBuilder'
 const rooteReducer = combineReducers({
     burguerBuilderReducer
 })
-const store = createStore(rooteReducer)
+const store = createStore(rooteReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 const app = (
     <Provider store={store}>
         <BrowserRouter>

@@ -1,41 +1,26 @@
 import React, { Component } from "react";
 import Order from '../../components/Order/Order'
-import axios from '../../axios-orders'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import { ordersContainers } from "../../store/services/index";
+import Modal from '../../components/UI/Modal/Modal'
 
+@ordersContainers
 class Orders extends Component {
-    state = {
-        orders: [],
-        loading: false,
-        errorMessage: null
-    }
+
     componentDidMount(){
-        axios.get('/orders.json')
-        .then(res => {
-            let ordersData = [];
-            Object.entries(res.data).forEach(([key, value])=>{
-                ordersData.push({
-                    ...value,
-                    id: key
-                })
-            })
-            this.setState({
-                orders: ordersData,
-                loading: false
-            })
-        })
-        .catch( err => {
-            this.setState({loading: false, errorMessage: err.message})
-        })
+       this.props.fetchOrders()
     }
     render(){
-        console.log(this.state.orders)
         let Orders = null
-        Orders = this.state.orders.map(order => {
+        Orders = this.props.orders.map(order => {
             return <Order key={order.id} price={+order.price} ingredients={order.ingredients}/>
         })
-        if (this.state.errorMessage !== null) Orders = <div>{ this.state.errorMessage }</div>;
-        if (this.state.orders.length === 0) Orders = <Spinner />
+        if (this.props.orders.length === 0) Orders = <Spinner />
+        if (this.props.errorMessage !== null) Orders = (
+            <Modal show={this.props.error}>
+                <div>{ this.props.errorMessage }</div>
+            </Modal>
+        );
         return(
             <div>
                 { Orders }

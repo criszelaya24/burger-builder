@@ -2,6 +2,6 @@ export {
 burguerBuilderContainer
 } from './burguerBuilderContainer'
 
-export { 
-    checkoutContainer
-} from './checkoutContainer'
+export {
+    ordersContainers
+} from './ordersContainers'

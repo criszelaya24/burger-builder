@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
 import ContactData from './ContactData/ContactData'
-import { checkoutContainer } from '../../store/services/index'
-@checkoutContainer
+import { burguerBuilderContainer } from '../../store/services/index'
+@burguerBuilderContainer
 class Checkout extends Component {
     state = {
         contactData:false

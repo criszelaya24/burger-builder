@@ -7,9 +7,11 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import burguerBuilderReducer from './store/reducers/burguerBuilder'
+import orderReducer from './store/reducers/ordersContainer'
 import thunk from 'redux-thunk'
 const rooteReducer = combineReducers({
-    burguerBuilderReducer
+    burguerBuilderReducer,
+    orderReducer
 })
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rooteReducer, composeEnhancers(

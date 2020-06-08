@@ -1,9 +1,10 @@
 # Burguer Builder
 
 ## How it looks?
-![Screenshot](/img/burger.png)
+[![Play Me](/img/burgerBuilder.png)](/img/burguerBuilder.mp4 "Resume")
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
 
 ## Goal?
 Practice react creating a burguer builder!

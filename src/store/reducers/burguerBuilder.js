@@ -9,6 +9,7 @@ const initialState = {
     },
     fetching: false,
     error: false,
+    errorMessage: '',
     totalPrice: 4,
 }
 
@@ -45,7 +46,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 ingredients: action.ingredients,
                 fetching: false,
-                error: false
+                error: false,
+                errorMessage: ''
             };
         case actionTypes.FETCH_INGREDIENTS:
             return {
@@ -56,7 +58,8 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 fetching: false,
-                error: action.error
+                error: true,
+                errorMessage: action.error
             }
         default:
             return state

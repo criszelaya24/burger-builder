@@ -43,7 +43,7 @@ export const getIngredients = () =>{
                 dispatch(setIngredients(res.data))
              })
              .catch(err => {
-                dispatch(fetchIngredientsFails(err))
+                dispatch(fetchIngredientsFails(err.message))
                })
     }
 }

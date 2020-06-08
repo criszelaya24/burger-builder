@@ -4,15 +4,13 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
-import { connect } from 'react-redux'
-import * as actions from '../../store/actions/index'
+import { burguerBuilderContainer } from '../../store/services/index'
 
+@burguerBuilderContainer
 class BurgerBuilder extends Component {
     state = {
         purchasing: false,
-        loading: false,
-        error: false,
-        errorMessage: null
+        loading: false
     }
 
     componentDidMount(){
@@ -35,9 +33,7 @@ class BurgerBuilder extends Component {
 
     purchaseCancelHandler = () =>{
         this.setState({
-            purchasing: false,
-            error: false,
-            errorMessage: null
+            purchasing: false
         })
     }
 
@@ -52,7 +48,7 @@ class BurgerBuilder extends Component {
         for (let key in disbaledInfo) { disbaledInfo[key] = disbaledInfo[key] <= 0  }
         console.log(disbaledInfo)
         let orderSummary = null
-        let burger = this.state.error? <p>{this.state.errorMessage}</p> : <Spinner/>
+        let burger = this.props.error? <p>{this.props.errorMessage}</p> : <Spinner/>
         if (this.props.ingredients){
             burger = (
                 <div>
@@ -71,10 +67,10 @@ class BurgerBuilder extends Component {
                                            price = {this.props.totalPrice}/>
         }
         if(this.state.loading) orderSummary = <Spinner/>;
-        if(this.state.error) orderSummary = <div>{this.state.errorMessage}</div>
+        if(this.props.error) orderSummary = <div>{this.props.errorMessage}</div>
         return(
             <div>
-                <Modal show = {this.state.purchasing} modalClosed={this.purchaseCancelHandler}>
+                <Modal show = {this.state.purchasing || this.props.error} modalClosed={this.purchaseCancelHandler}>
                     {orderSummary}
                 </Modal>
                 {burger}
@@ -83,18 +79,4 @@ class BurgerBuilder extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        ingredients: state.burguerBuilderReducer.ingredients,
-        totalPrice: state.burguerBuilderReducer.totalPrice
-    }
-}
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onIngredientsAdd: (ingredientName) => dispatch(actions.addIngredients(ingredientName)),
-        onIngredientsRemoved: (ingredientName) => dispatch(actions.removeIngredients(ingredientName)),
-        onInitIngredients: () => dispatch(actions.getIngredients())
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(BurgerBuilder);
+export default BurgerBuilder;

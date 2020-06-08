@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary'
 import ContactData from './ContactData/ContactData'
-import  { connect } from 'react-redux'
+import { checkoutContainer } from '../../store/services/index'
+@checkoutContainer
 class Checkout extends Component {
     state = {
         contactData:false
@@ -27,10 +28,5 @@ class Checkout extends Component {
         )
     }
 }
-const mapStateToProps = state => {
-    return {
-        ingredients: state.burguerBuilderReducer.ingredients,
-        totalPrice: state.burguerBuilderReducer.totalPrice
-    }
-}
-export default connect(mapStateToProps)(Checkout)
+
+export default Checkout;

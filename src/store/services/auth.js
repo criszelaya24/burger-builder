@@ -9,7 +9,8 @@ const mapStateToProps = state => {
         isAuthenticated: state.authReducer.token !== null,
         buildingBurger: state.burguerBuilderReducer.building,
         authRedirectPath: state.authReducer.authRedirectPath ,
-        token: state.authReducer.token
+        token: state.authReducer.token,
+        userId: state.authReducer.userId
     }
 }
 

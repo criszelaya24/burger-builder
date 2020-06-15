@@ -13,7 +13,7 @@ class Orders extends Component {
     }
 
     componentDidMount(){
-        this.props.fetchOrders(this.props.token)
+        this.props.fetchOrders(this.props.token, this.props.userId)
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {

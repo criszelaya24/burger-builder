@@ -4,8 +4,9 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls'
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 import Spinner from '../../components/UI/Spinner/Spinner'
-import { burguerBuilderContainer } from '../../store/services/index'
+import { burguerBuilderContainer, auth } from '../../store/services/index'
 
+@auth
 @burguerBuilderContainer
 class BurgerBuilder extends Component {
     state = {
@@ -19,7 +20,10 @@ class BurgerBuilder extends Component {
     }
 
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        if(this.props.isAuthenticated) this.setState({purchasing: true});
+
+        this.props.onSetAuthRedirectPath('/checkout');
+        this.props.history.push('/auth')
     }
 
     updatePurchaseState (ingredients) {
@@ -54,11 +58,13 @@ class BurgerBuilder extends Component {
                 <div>
                     <Burger ingredients = {this.props.ingredients}/>
                     <BuildControls ingredientsAdded = {this.props.onIngredientsAdd}
-                                   ingredientsRemoved = {this.props.onIngredientsRemoved}
-                                   disbaledInfo = {disbaledInfo}
-                                   price = {this.props.totalPrice}
-                                   purchasable = {this.updatePurchaseState(this.props.ingredients)}
-                                   ordered = {this.purchaseHandler}/>
+                                    ingredientsRemoved = {this.props.onIngredientsRemoved}
+                                    disbaledInfo = {disbaledInfo}
+                                    price = {this.props.totalPrice}
+                                    purchasable = {this.updatePurchaseState(this.props.ingredients)}
+                                    ordered = {this.purchaseHandler}
+                                    isAuth= {this.props.isAuthenticated}
+                                    />
                 </div>
             )
             orderSummary = <OrderSummary purchaseCancelled = {this.purchaseCancelHandler}

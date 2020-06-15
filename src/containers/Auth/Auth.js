@@ -5,9 +5,7 @@ import Button from '../../components/UI/Button/Button';
 
 import classes from './Auth.css';
 
-/* Redux */
-import {connect} from 'react-redux';
-import * as actions from '../../store/actions/index';
+import { auth } from '../../store/services/index'
 
 /* Spinner */
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -15,6 +13,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 /* Redirect */
 import { Redirect } from 'react-router-dom';
 
+@auth
 class Auth extends Component {
 
     state = {
@@ -53,9 +52,9 @@ class Auth extends Component {
     }
 
     componentDidMount () {
-        // if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
-        //     this.props.onSetAuthRedirectPath();
-        // }
+        if (!this.props.buildingBurger && this.props.authRedirectPath !== '/') {
+            this.props.onSetAuthRedirectPath();
+        }
     }
 
      checkValidity (value, rules) {
@@ -99,8 +98,8 @@ class Auth extends Component {
 
     submitHandler = (event) => {
 
-        // event.preventDefault();
-        // this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
+        event.preventDefault();
+        this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignup);
 
     }
 
@@ -173,24 +172,5 @@ class Auth extends Component {
     }
     
 }
-
-// const mapStateToProps = state => {
-//     return {
-//         loading: state.auth.loading, 
-//         error: state.auth.error,
-//         isAuthenticated: state.auth.token !== null,
-//         buildingBurger: state.burgerBuilder.building,
-//         authRedirectPath: state.auth.authRedirectPath 
-
-//     }
-// }
-
-// const mapDispatchToProps = dispatch => {
-//     return {
-//         onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
-//         onSetAuthRedirectPath: () => dispatch(actions.setAuthRedirectPath('/'))
-
-//     };
-// }
 
 export default Auth;

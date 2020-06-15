@@ -1,14 +1,31 @@
 import React, { Component } from "react";
 import Order from '../../components/Order/Order'
 import Spinner from '../../components/UI/Spinner/Spinner'
-import { ordersContainers } from "../../store/services/index";
+import { ordersContainers, auth } from "../../store/services/index";
 import Modal from '../../components/UI/Modal/Modal'
 
+@auth
 @ordersContainers
 class Orders extends Component {
 
+    state = {
+        showModal: false
+    }
+
     componentDidMount(){
-       this.props.fetchOrders()
+        this.props.fetchOrders(this.props.token)
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        if (this.state.showModal !== nextProps.error)
+            this.setState({showModal: nextProps.error})
+    }
+
+    clicked = () => {
+        const changeFlag = !this.props.error
+        this.setState({
+            showModal: changeFlag
+        })
     }
     render(){
         let Orders = null
@@ -17,7 +34,7 @@ class Orders extends Component {
         })
         if (this.props.orders.length === 0) Orders = <Spinner />
         if (this.props.errorMessage !== null) Orders = (
-            <Modal show={this.props.error}>
+            <Modal show={this.state.showModal} modalClosed={this.clicked}>
                 <div>{ this.props.errorMessage }</div>
             </Modal>
         );

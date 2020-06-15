@@ -5,6 +5,9 @@ import Spinner from '../../../components/UI/Spinner/Spinner'
 import axios from '../../../axios-orders'
 import Input from '../../../components/UI/Input/Input'
 import { withRouter } from 'react-router-dom'
+import { auth } from '../../../store/services/index'
+
+@auth
 class ContactData extends Component {
     state = {
        orderForm: {
@@ -95,7 +98,7 @@ class ContactData extends Component {
             price: this.props.totalPrice,
             orderData: formData
         }
-        axios.post('/orders.json', order)
+        axios.post('/orders.json?auth=' + this.props.token, order)
              .then(response => {
 
                  this.setState({loading:false, purchasing: false})

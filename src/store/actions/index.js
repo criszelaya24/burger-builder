@@ -7,3 +7,11 @@ export {
 export {
     fetchOrders
 } from './ordersContainers'
+
+export {
+    auth,
+    logout,
+    setAuthRedirectPath,
+    authCheckState
+
+} from './auth'

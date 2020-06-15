@@ -21,10 +21,10 @@ export const failGetOrders = (errorMessage) => {
         errorMessage
     }
 }
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
     return dispatch => {
         dispatch(initFetchOrders())
-        axios.get('/orders.json')
+        axios.get('/orders.json?auth=' + token)
         .then(res => {
             let ordersData = [];
             Object.entries(res.data).forEach(([key, value])=>{

@@ -17,8 +17,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onAuth: (email, password, isSignup) => dispatch(actions.auth(email, password, isSignup)),
         onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
-        onLogout: ()=> dispatch(actions.logout())
-
+        onLogout: ()=> dispatch(actions.logout()),
+        onAutoLogin: () => dispatch (actions.authCheckState())
     };
 }
 
